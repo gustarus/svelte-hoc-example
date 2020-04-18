@@ -18,9 +18,10 @@
     throw new Error('Svelte api has been changed: there is no required arguments passed');
   }
 
-  const { _component, ...rest } = props;
+  // extract component constructor
+  const { _component: component, ...rest } = props;
 
-  if (!_component) {
+  if (!component) {
     // prettier-ignore
     throw new Error('Invalid component usage: should be used only from `withSettings` hoc');
   }
@@ -28,7 +29,7 @@
   let node;
   const bound = {};
   const changesCache = {};
-  const Component = _component;
+  const Component = component;
 
   /**
    * Trigger change event on bounded property with changes cache.
@@ -39,22 +40,37 @@
     if (!changesCache[name]) {
       // lock this value as changed to prevent infinite loop
       changesCache[name] = true;
+      // override self property
+      rest[name] = value;
+      // update self rest props
+      self.$$.bound[name](value);
       // unlock this value after event loop
       setTimeout(() => (changesCache[name] = false), 0);
-      // update self rest props
-      invalidate(name, (rest[name] = value));
+    }
+  }
+
+  /**
+   * Set self properties and proxy them to the node.
+   * @param updated
+   */
+  function set(updated) {
+    node && node.$set(updated);
+    for (const name in updated) {
+      rest[name] = updated[name];
     }
   }
 
   // listen to component changes
   beforeUpdate(() => {
+    // override $set handler for self
+    self.$set = set;
+
     // if bound child component node exists
     if (node) {
-
       // create handlers for all bounds through
       // because we want to avoid infinite data loop
       // and assign them to the child node
-      for (const name in rest) {
+      for (const name in self.$$.bound) {
         // create bound callback with debounce effect
         // to prevent infinite data loop
         bound[name] = bound[name] || change.bind(undefined, name);
@@ -69,7 +85,7 @@
   });
 </script>
 
-{#if settings}
+{#if rest.settings}
   <Component bind:this={node} {...rest} />
 {:else}
   Loading...
