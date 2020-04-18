@@ -1,0 +1,30 @@
+{
+  "name": "svelte-hoc-example",
+  "version": "0.0.1",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development",
+    "build": "node ./node_modules/webpack/bin/webpack.js --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gustarus/svelte-hoc-example.git"
+  },
+  "author": "Pavel Kondratenko <iam@kondratenko.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustarus/svelte-hoc-example/issues"
+  },
+  "homepage": "https://github.com/gustarus/svelte-hoc-example#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "3.0.0",
+    "html-webpack-plugin": "3.2.0",
+    "svelte": "3.12.1",
+    "svelte-loader": "2.13.4",
+    "svelte-preprocess": "2.15.0",
+    "webpack": "4.28.4",
+    "webpack-cli": "^3.3.3",
+    "webpack-dev-server": "3.7.1"
+  }
+}
