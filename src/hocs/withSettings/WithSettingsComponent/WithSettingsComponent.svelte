@@ -18,7 +18,6 @@
     throw new Error('Svelte api has been changed: there is no required arguments passed');
   }
 
-  // eslint-disable-next-line
   const { _component, ...rest } = props;
 
   if (!_component) {
