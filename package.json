@@ -23,7 +23,7 @@
     "svelte": "3.12.1",
     "svelte-loader": "2.13.4",
     "svelte-preprocess": "2.15.0",
-    "webpack": "4.28.4",
+    "webpack": "5.94.0",
     "webpack-cli": "^3.3.3",
     "webpack-dev-server": "3.7.1"
   }
