@@ -20,7 +20,7 @@
   "devDependencies": {
     "clean-webpack-plugin": "3.0.0",
     "html-webpack-plugin": "3.2.0",
-    "svelte": "3.12.1",
+    "svelte": "4.2.19",
     "svelte-loader": "2.13.4",
     "svelte-preprocess": "2.15.0",
     "webpack": "4.28.4",
